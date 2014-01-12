@@ -1,8 +1,8 @@
 import unittest
 from potter import price
 
-class TestRunningPrice(unittest.TestCase):
-    def test_running_basics(self):
+class TestPrice(unittest.TestCase):
+    def test_basics(self):
         self.assertEqual(0, price([]))
         self.assertEqual(8, price([0]))
         self.assertEqual(8, price([1]))
@@ -12,19 +12,19 @@ class TestRunningPrice(unittest.TestCase):
         self.assertEqual(8 * 2, price([0, 0]))
         self.assertEqual(8 * 3, price([1, 1, 1]))
 
-    def test_running_simple_discounts(self):
+    def test_simple_discounts(self):
         self.assertEqual(8 * 2 * 0.95, price([0, 1]))
         self.assertEqual(8 * 3 * 0.9, price([0, 2, 4]))
         self.assertEqual(8 * 4 * 0.8, price([0, 1, 2, 4]))
         self.assertEqual(8 * 5 * 0.75, price([0, 1, 2, 3, 4]))
 
-    def test_running_several_discounts(self):
+    def test_several_discounts(self):
         self.assertEqual(8 + (8 * 2 * 0.95), price([0, 0, 1]))
         self.assertEqual(2 * (8 * 2 * 0.95), price([0, 0, 1, 1]))
         self.assertEqual((8 * 4 * 0.8) + (8 * 2 * 0.95), price([0, 0, 1, 2, 2, 3]))
         self.assertEqual(8 + (8 * 5 * 0.75), price([0, 1, 1, 2, 3, 4]))
 
-    def test_running_edge_cases(self):
+    def test_edge_cases(self):
         self.assertEqual(2 * (8 * 4 * 0.8), price([0, 0, 1, 1, 2, 2, 3, 4]))
         self.assertEqual(3 * (8 * 5 * 0.75) + 2 * (8 * 4 * 0.8), price([0, 0, 0, 0, 0, 
                                                                     1, 1, 1, 1, 1, 
