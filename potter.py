@@ -14,7 +14,7 @@ def price(books):
 
 
 def combine(books):
-    groups = ([], [], [])
+    groups = [], [], []
 
     while len(books) != 0:
         largest_set = set(books)
@@ -35,16 +35,16 @@ def combine(books):
 
 def combine_cheapest(groups):
     sets_of_5, sets_of_3, cheapest_sets = groups
-    min_len = min(len(sets_of_5), len(sets_of_3))
+    len_min = min(len(sets_of_5), len(sets_of_3))
 
-    for i in range(min_len):
+    for i in range(len_min):
         value = max(sets_of_5[i] - sets_of_3[i])
         sets_of_5[i].discard(value)
         sets_of_3[i].add(value)
         cheapest_sets.append(sets_of_5[i])
         cheapest_sets.append(sets_of_3[i])
 
-    cheapest_sets.extend(sets_of_5[min_len:])
-    cheapest_sets.extend(sets_of_3[min_len:])
+    cheapest_sets.extend(sets_of_5[len_min:])
+    cheapest_sets.extend(sets_of_3[len_min:])
 
     return cheapest_sets
