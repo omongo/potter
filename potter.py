@@ -7,7 +7,8 @@ def price(books):
 
     for cheapest_set in cheapest_sets:
         cheapest_set_len = len(cheapest_set)
-        result += price_per_unit * cheapest_set_len * len_to_rate[cheapest_set_len]
+        result += price_per_unit * cheapest_set_len * \
+            len_to_rate[cheapest_set_len]
 
     return result
 
