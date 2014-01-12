@@ -1,1 +1,1 @@
-$ python3 potter.py -v
+$ python3 test_running_potter.py -v

@@ -1,46 +1,7 @@
 def price(books):
-    """ Calulate the lowest price of books. 
-    >>> price([])
-    0
-    >>> price([0])
-    8
-    >>> price([1])
-    8
-    >>> price([2])
-    8
-    >>> price([3])
-    8
-    >>> price([4])
-    8
-    >>> price([0, 0])
-    16
-    >>> price([1, 1, 1])
-    24
-    >>> price([0, 1])
-    15.2
-    >>> price([0, 2, 4])
-    21.6
-    >>> price([0, 1, 2, 4])
-    25.6
-    >>> price([0, 1, 2, 3, 4])
-    30.0
-    >>> price([0, 0, 1])
-    23.2
-    >>> price([0, 0, 1, 1])
-    30.4
-    >>> price([0, 0, 1, 2, 2, 3])
-    40.8
-    >>> price([0, 1, 1, 2, 3, 4])
-    38.0
-    >>> price([0, 0, 1, 1, 2, 2, 3, 4])
-    51.2
-    >>> price([0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4])
-    141.2
-    """
     result = 0
     price_per_unit = 8
     len_to_rate = {1: 1, 2: 0.95, 3: 0.9, 4: 0.8, 5: 0.75}
-
     groups = combine(books)
     cheapest_sets = combine_cheapest(groups)
 
@@ -72,7 +33,6 @@ def combine(books):
 
 
 def combine_cheapest(groups):
-    """ 4, 4 is cheaper than 5, 3. """
     sets_of_5, sets_of_3, cheapest_sets = groups
     min_len = min(len(sets_of_5), len(sets_of_3))
 
@@ -87,8 +47,3 @@ def combine_cheapest(groups):
     cheapest_sets.extend(sets_of_3[min_len:])
 
     return cheapest_sets
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
