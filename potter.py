@@ -1,42 +1,3 @@
-def combine(books):
-    lowest_groups = []
-    groups_of_5 = []
-    groups_of_3 = []
-
-    while len(books) != 0:
-        largest_unique = set(books)
-        largest_unique_len = len(largest_unique) 
-
-        if largest_unique_len == 5:
-            groups_of_5.append(largest_unique)
-        elif largest_unique_len == 3:
-            groups_of_3.append(largest_unique)
-        else:
-            lowest_groups.append(largest_unique)
-
-        for book in largest_unique:
-            books.remove(book)
-
-    return lowest_groups, groups_of_5, groups_of_3
-
-
-def match(groups):
-    lowest_groups, groups_of_5, groups_of_3 = groups
-    common_length = min(len(groups_of_5), len(groups_of_3))
-
-    for i in range(common_length):
-        value = max(groups_of_5[i] - groups_of_3[i])
-        groups_of_5[i].discard(value)
-        groups_of_3[i].add(value)
-        lowest_groups.append(groups_of_5[i])
-        lowest_groups.append(groups_of_3[i])
-
-    lowest_groups.extend(groups_of_5[common_length:])
-    lowest_groups.extend(groups_of_3[common_length:])
-
-    return lowest_groups
-
-
 def price(books):
     """ Calulate the lowest price of books. 
     >>> price([])
@@ -78,15 +39,51 @@ def price(books):
     """
     result = 0
     price_per_unit = 8
-    length_to_rate = {1: 1, 2: 0.95, 3: 0.9, 4: 0.8, 5: 0.75}
+    len_to_rate = {1: 1, 2: 0.95, 3: 0.9, 4: 0.8, 5: 0.75}
+    cheapest_sets = combine(books)
 
-    groups = combine(books)
-    lowest_groups = match(groups)
-
-    for group in lowest_groups:
-        result += price_per_unit * len(group) * length_to_rate[len(group)]
+    for cheapest_set in cheapest_sets:
+        cheapest_set_len = len(cheapest_set)
+        result += price_per_unit * cheapest_set_len * len_to_rate[cheapest_set_len]
 
     return result
+
+
+def combine(books):
+    groups = ([], [], [])
+
+    while len(books) != 0:
+        largest_set = set(books)
+        largest_set_len = len(largest_set)
+
+        if largest_set_len == 5:
+            groups[0].append(largest_set)
+        elif largest_set_len == 3:
+            groups[1].append(largest_set)
+        else:
+            groups[2].append(largest_set)
+
+        for book in largest_set:
+            books.remove(book)
+
+    return match(groups)
+
+
+def match(groups):
+    sets_of_5, sets_of_3, cheapest_sets = groups
+    min_len = min(len(sets_of_5), len(sets_of_3))
+
+    for i in range(min_len):
+        value = max(sets_of_5[i] - sets_of_3[i])
+        sets_of_5[i].discard(value)
+        sets_of_3[i].add(value)
+        cheapest_sets.append(sets_of_5[i])
+        cheapest_sets.append(sets_of_3[i])
+
+    cheapest_sets.extend(sets_of_5[min_len:])
+    cheapest_sets.extend(sets_of_3[min_len:])
+
+    return cheapest_sets
 
 
 if __name__ == '__main__':
