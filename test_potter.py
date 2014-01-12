@@ -1,7 +1,7 @@
 import unittest
 from potter import price
 
-class TestPrice(unittest.TestCase):
+class TestPotter(unittest.TestCase):
     def test_basics(self):
         self.assertEqual(0, price([]))
         self.assertEqual(8, price([0]))
@@ -31,6 +31,3 @@ class TestPrice(unittest.TestCase):
                                                                     2, 2, 2, 2, 
                                                                     3, 3, 3, 3, 3, 
                                                                     4, 4, 4, 4]))
-
-if __name__ == '__main__':
-    unittest.main()
